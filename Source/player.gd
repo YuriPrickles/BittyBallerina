@@ -4,7 +4,7 @@ extends CharacterBody2D
 
 const SPEED = 120.0
 const ACCEL = 20.0
-const DECEL = 50
+const DECEL = 40.0
 const JUMP_VELOCITY = -200.0
 const MAX_FALL_SPEED = 300
 @onready var camera: Camera2D = $Camera2D
@@ -57,6 +57,8 @@ func _process(delta: float) -> void:
 func respawn():
 	if not respawning:
 		respawning = true
+		camera_shake(7, 5,0.016)
+		await get_tree().create_timer(0.3).timeout
 		rotate_level(respawn_attached.default_rotation - (roundi(collider.rotation_degrees) % 360))
 		await get_tree().create_timer(0.3).timeout
 		var tween = create_tween()
@@ -108,3 +110,9 @@ func rotate_level(rot:int):
 	tween.tween_property(collider,"rotation_degrees", collider.rotation_degrees + rot,0.5).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 	tween.set_parallel(false)
 	tween.tween_callback(func(): is_rotating = false)
+
+func camera_shake(strength:float, frames:float,delta:float):
+	for i in range(frames):
+		camera.offset = Vector2(randf_range(-strength,strength),randf_range(-strength,strength))
+		await get_tree().create_timer(delta).timeout
+	camera.offset = Vector2.ZERO
