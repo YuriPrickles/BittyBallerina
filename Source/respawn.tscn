@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://danquxggytn4f"]
+
+[ext_resource type="Script" uid="uid://dtbsmrpa3vyd8" path="res://Source/respawn.gd" id="1_50mwh"]
+
+[node name="Respawn" type="Node2D" unique_id=1010413613]
+script = ExtResource("1_50mwh")
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=1638540496]

@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cwg3mx15fsn01"]
+
+[ext_resource type="Script" uid="uid://cm3x8foq2ua4y" path="res://Source/main.gd" id="1_p7x2e"]
+[ext_resource type="PackedScene" uid="uid://d3vq2ppbr2t3v" path="res://Source/map.tscn" id="2_uglvk"]
+[ext_resource type="PackedScene" uid="uid://bb8b26ihlln7r" path="res://Source/player.tscn" id="3_fqc6k"]
+
+[node name="Main" type="Node" unique_id=759547695 node_paths=PackedStringArray("map")]
+script = ExtResource("1_p7x2e")
+map = NodePath("Map")
+
+[node name="Map" parent="." unique_id=1409200960 instance=ExtResource("2_uglvk")]
+
+[node name="Player" parent="Map" unique_id=56060189 instance=ExtResource("3_fqc6k")]
+position = Vector2(40, 168)
