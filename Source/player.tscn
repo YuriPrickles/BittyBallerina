@@ -155,7 +155,7 @@ light_mask = 2
 material = SubResource("CanvasItemMaterial_yo7go")
 sprite_frames = SubResource("SpriteFrames_coxhp")
 animation = &"spin"
-frame_progress = 0.16899906
+frame_progress = 0.1968878
 centered = false
 offset = Vector2(-8, -10)
 

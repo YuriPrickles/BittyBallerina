@@ -11,21 +11,27 @@ const MAX_FALL_SPEED = 200
 @onready var player_sprite: AnimatedSprite2D = $PlayerSprite
 @onready var collider: CollisionShape2D = $Collider
 
-var is_rotating = false
 
 const COYOTE_MAX:float = 0.2
 var coyote_timer:float = 0
-var jumping:bool = false
 
-const BUFFER_MAX:float = 0.4
+const BUFFER_MAX:float = 0.1
 var buffer_timer:float = 0
-var buffering:bool = false
+var buffering:bool = true
 var current_level:Level = null
 var prev_level:Level = null
-var respawning = false
 var respawn_attached: Respawn
 var draw_respawn_orb:bool=false
 
+var next_jump_boost:Vector2 = Vector2.ZERO
+
+enum State{
+	NORMAL=0,
+	JUMPING=1,
+	ROTATING=2,
+	RESPAWNING=3,
+}
+var StateMachine:State = State.NORMAL
 func _ready() -> void:
 	var levels = Main.main.map.levels
 	for level in levels:
@@ -50,7 +56,7 @@ func _process(delta: float) -> void:
 		tween.tween_property(current_level,"cover_opacity",0,0.3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 
 	prev_level = current_level
-	if respawning:
+	if StateMachine == State.RESPAWNING:
 		queue_redraw()
 	#if current_level:
 		#camera.set_limit(SIDE_TOP,current_level.true_bounds.position.y)
@@ -59,29 +65,34 @@ func _process(delta: float) -> void:
 		#camera.set_limit(SIDE_RIGHT,current_level.true_bounds.position.x + current_level.true_bounds.size.x)
 
 func _physics_process(delta: float) -> void:
-	if is_rotating or respawning: return
-	if not is_on_floor():
-		if not jumping: coyote_timer += delta
-		velocity.y = clampf(velocity.y + (get_gravity().y * delta),JUMP_VELOCITY, MAX_FALL_SPEED)
-	if buffering:
-		buffer_timer += delta
-		if buffer_timer > BUFFER_MAX:
-			buffering = false
-		elif is_on_floor():
-			jump()
-			
-	if is_on_floor():
-		jumping = false
-	var rotate_dir:float = Input.get_axis("rotate_left", "rotate_right")
-	if not jumping and Input.is_action_just_pressed("ui_accept"):
-		if is_on_floor() or (coyote_timer > 0 and coyote_timer < COYOTE_MAX):
+	if Input.is_action_just_pressed("ui_accept"):
+		buffer_timer = 0
+		buffering = true
+		if not StateMachine == State.ROTATING and not StateMachine == State.JUMPING and (is_on_floor() or (coyote_timer < COYOTE_MAX)):
 			jump()
 			coyote_timer = 0
-			jumping = true
-		else:
-			buffering = true
-	
-	if rotate_dir and not is_rotating:
+			StateMachine = State.JUMPING
+	if StateMachine == State.ROTATING or StateMachine == State.RESPAWNING: return
+	if not is_on_floor():
+		if not StateMachine == State.JUMPING: coyote_timer += delta
+		velocity.y = clampf(velocity.y + (get_gravity().y * delta),JUMP_VELOCITY, MAX_FALL_SPEED)
+	if is_on_floor() and buffer_timer < BUFFER_MAX:
+		jump()
+		buffer_timer = 0
+	if not StateMachine == State.ROTATING and buffering and buffer_timer < BUFFER_MAX:
+		buffer_timer += delta
+			
+	if is_on_floor() and StateMachine == State.JUMPING:
+		StateMachine = State.NORMAL
+	var rotate_dir:float = Input.get_axis("rotate_left", "rotate_right")
+	modulate = Color.WHITE
+	if buffer_timer < BUFFER_MAX:
+		modulate = Color.BLUE
+	if coyote_timer > 0 and coyote_timer < COYOTE_MAX:
+		modulate = Color.RED
+	if buffer_timer < BUFFER_MAX and coyote_timer > 0 and coyote_timer < COYOTE_MAX:
+		modulate = Color.PURPLE
+	if rotate_dir and not StateMachine == State.ROTATING:
 		var rotation_value = 90 * rotate_dir
 		rotate_level(rotation_value)
 	var direction := Input.get_axis("left", "right")
@@ -92,31 +103,42 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func do_animation():
-	if respawning:
+	if StateMachine == State.RESPAWNING:
 		animate("death",true,func():draw_respawn_orb=true)
-	elif is_rotating:
+	elif StateMachine == State.ROTATING:
 		animate("spin",true)
-	elif jumping:
+	elif StateMachine == State.JUMPING:
 		animate("jump",true)
-	elif velocity.x != 0:
-		animate("walk",true)
-	else:
-		animate("idle")
+	elif StateMachine == State.NORMAL:
+		if velocity.x != 0:
+			animate("walk",true)
+		else:
+			animate("idle")
 	
 
 func jump(vel = JUMP_VELOCITY):
 	velocity.y = vel
+	velocity += next_jump_boost
+	next_jump_boost = Vector2.ZERO
 
 func rotate_level(rot:int):
-	is_rotating = true
+	var was_on_floor = is_on_floor()
+	var state_to_return = StateMachine
+	if not StateMachine == State.RESPAWNING:
+		StateMachine = State.ROTATING
 	var tween:Tween = create_tween()
-	tween.tween_property(camera,"rotation_degrees",camera.rotation_degrees + rot,0.5).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(camera,"rotation_degrees",camera.rotation_degrees + rot,0.5).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.set_parallel()
-	tween.tween_property(Main.main.map,"rotation_degrees",Main.main.map.rotation_degrees - rot,0.5).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(player_sprite,"rotation_degrees",player_sprite.rotation_degrees + rot,0.5).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(collider,"rotation_degrees", collider.rotation_degrees + rot,0.5).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(Main.main.map,"rotation_degrees",Main.main.map.rotation_degrees - rot,0.5).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(player_sprite,"rotation_degrees",player_sprite.rotation_degrees + rot,0.5).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(collider,"rotation_degrees", collider.rotation_degrees + rot,0.5).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.set_parallel(false)
-	tween.tween_callback(func(): is_rotating = false)
+	tween.tween_callback(func():
+		StateMachine = state_to_return
+		if was_on_floor:
+			next_jump_boost = Vector2(0,JUMP_VELOCITY * 3)
+			coyote_timer = -0.05
+		)
 
 func camera_shake(strength:float, frames:float,delta:float):
 	for i in range(frames):
@@ -125,12 +147,13 @@ func camera_shake(strength:float, frames:float,delta:float):
 	camera.offset = Vector2.ZERO
 
 func respawn():
-	if not respawning:
+	print(StateMachine)
+	if not StateMachine == State.RESPAWNING:
+		StateMachine = State.RESPAWNING
 		player_sprite.stop()
 		Main.main.map.add_child(OnDeathBoom.new(position))
 		velocity = Vector2.ZERO
 		move_and_slide()
-		respawning = true
 		camera_shake(7, 5,0.016)
 		await get_tree().create_timer(0.3).timeout
 		var tween2 = create_tween()
@@ -145,7 +168,7 @@ func respawn():
 		
 		tween.set_parallel(false)
 		tween.tween_callback(func():
-			respawning = false
+			StateMachine = State.NORMAL
 			draw_respawn_orb = false
 			queue_redraw()
 			respawn_orb_size = -2

@@ -16,13 +16,14 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	rotation_degrees =  Main.normalize_rotation(rotation_degrees)
 	if Engine.is_editor_hint():
 		collider.position = Vector2(width/2,6)
 		(collider.shape as RectangleShape2D).size = Vector2(width, 4)
 		queue_redraw()
 	elif Main.main.should_update(self):
 		var plr:Player = Main.main.get_player()
-		if plr.is_rotating:
+		if plr.StateMachine == Player.State.ROTATING:
 			monitoring = false
 		else:
 			monitoring = true
@@ -38,10 +39,13 @@ func _on_body_entered(body: Node2D) -> void:
 	if body is Player and body is not StaticBody2D:
 		var kill = false
 		var vel:Vector2 = body.velocity
-		print(body.velocity)
 		vel = vel.round()
-		print(vel, " vs ", Main.normalize_rotation(rotation_degrees + Main.main.map.normalized_rotation)) 
-		match Main.normalize_rotation(rotation_degrees + Main.main.map.normalized_rotation):
+		var final_rotation = Main.normalize_rotation(rotation_degrees + Main.main.map.rotation_degrees)
+		if body.StateMachine != Player.State.RESPAWNING:
+			print(body.velocity)
+			print(vel, " vs ", final_rotation) 
+			print(name)
+		match final_rotation:
 			0:
 				if vel.y >= 0:
 					kill = true
@@ -54,6 +58,6 @@ func _on_body_entered(body: Node2D) -> void:
 			270:
 				if vel.x >= 0:
 					kill = true
-		print(name)
-		if not body.is_rotating and kill:
+					
+		if not body.StateMachine == Player.State.ROTATING and kill and not body.StateMachine == Player.State.RESPAWNING:
 			body.respawn()

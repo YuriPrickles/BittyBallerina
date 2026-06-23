@@ -16,8 +16,7 @@ func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		(get_node("CanvasModulate") as CanvasModulate).hide()
 	else:
-		normalized_rotation= absi(roundi(Main.main.map.rotation_degrees) - 180) % 360
-		normalized_rotation = 0 if normalized_rotation == 180 else 180 if normalized_rotation == 0 else normalized_rotation
+		normalized_rotation = Main.normalize_rotation(rotation_degrees)
 		(get_node("CanvasModulate") as CanvasModulate).show()
 		rotation_degrees = roundi(rotation_degrees) % 360
 	pass
