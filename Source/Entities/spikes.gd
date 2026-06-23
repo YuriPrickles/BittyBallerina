@@ -36,22 +36,24 @@ func _draw() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player and body is not StaticBody2D:
-		var allow_pass = false
-		var vel = body.velocity.rotated(deg_to_rad(Main.main.map.rotation_degrees))
-		print(vel, " vs ", Main.normalize_rotation(rotation_degrees))
-		match Main.normalize_rotation(rotation_degrees):
+		var kill = false
+		var vel:Vector2 = body.velocity
+		print(body.velocity)
+		vel = vel.round()
+		print(vel, " vs ", Main.normalize_rotation(rotation_degrees + Main.main.map.normalized_rotation)) 
+		match Main.normalize_rotation(rotation_degrees + Main.main.map.normalized_rotation):
 			0:
-				if vel.y < 0:
-					allow_pass = true
+				if vel.y >= 0:
+					kill = true
 			90:
-				if vel.x > 0:
-					allow_pass = true
+				if vel.x <= 0:
+					kill = true
 			180:
-				if vel.y > 0:
-					allow_pass = true
+				if vel.y <= 0:
+					kill = true
 			270:
-				if vel.x < 0:
-					allow_pass = true
+				if vel.x >= 0:
+					kill = true
 		print(name)
-		if not body.is_rotating and not allow_pass:
+		if not body.is_rotating and kill:
 			body.respawn()

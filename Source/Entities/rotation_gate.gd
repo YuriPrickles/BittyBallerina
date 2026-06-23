@@ -47,7 +47,6 @@ func _process(delta: float) -> void:
 	
 
 func _draw() -> void:
-	var rotation_offset = deg_to_rad(float(direction) + 90)
 	var arrow_draw_offset:int = 0
 	match direction:
 		0:
@@ -66,4 +65,4 @@ func _draw() -> void:
 	draw_texture_rect_region(block_texture,Rect2(Vector2.ZERO,Vector2(width,height)),Rect2(Vector2(0,draw_offset),Vector2(24,24)))
 	draw_texture_rect_region(face_texture,Rect2(Vector2((width-24)/2,(height-24)/2),Vector2(24,24)),Rect2(Vector2(24 * arrow_draw_offset,draw_offset),Vector2(24,24)))
 
-	draw_string(ThemeDB.fallback_font,Vector2(width/2,height/2),str(active),HORIZONTAL_ALIGNMENT_CENTER,-1, 16)
+	#draw_string(ThemeDB.fallback_font,Vector2(width/2,height/2),str(active),HORIZONTAL_ALIGNMENT_CENTER,-1, 16)
