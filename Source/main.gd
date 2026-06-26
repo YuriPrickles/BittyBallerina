@@ -11,20 +11,18 @@ enum Depths{
 	BGTiles = -3,
 	VeryBackground = -99,
 }
-@onready var very_background: CanvasLayer = $GameplayContainer/SubViewport/VeryBackground
-@onready var vb_color_rect: ColorRect = $GameplayContainer/SubViewport/VeryBackground/VBColorRect
+
 static var ui: UI
 
 
 static var main:Main
 
-const VOID_COLOR:Color = Color("9b422c")
+const VOID_COLOR:Color = Color("ffffffff")
 
 func _init() -> void:
 	main = self
 
 func _ready() -> void:
-	vb_color_rect.color = VOID_COLOR
 	ui = $UI
 
 func _process(delta: float) -> void:

@@ -11,6 +11,7 @@ collision_layer = 8
 script = ExtResource("1_3vp44")
 
 [node name="Collider" type="CollisionShape2D" parent="." unique_id=952360998]
+position = Vector2(12, 12)
 shape = SubResource("RectangleShape2D_coxhp")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

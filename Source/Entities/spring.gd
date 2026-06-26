@@ -2,6 +2,7 @@ class_name Spring
 extends Area2D
 
 @onready var collider: CollisionShape2D = $Collider
+@onready var sprite: AnimatedSprite2D = $Sprite
 
 
 func _ready() -> void:
@@ -23,7 +24,4 @@ func _on_body_entered(body: Node2D) -> void:
 		body.override_vel(Vector2(0,-300).rotated(deg_to_rad(final_rotation)),0.2)
 		if bop:
 			body.velocity.y = -150
-
-func _draw() -> void:
-	if collider:
-		draw_rect(Rect2(collider.position - collider.shape.size/2,collider.shape.size),Color.AQUA)
+		sprite.play("boing")

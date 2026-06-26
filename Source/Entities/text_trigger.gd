@@ -24,5 +24,5 @@ func _on_body_entered(body: Node2D) -> void:
 
 
 func _on_body_exited(body: Node2D) -> void:
-	if body is Player and not body.StateMachine == Player.State.RESPAWNING and not body.StateMachine == Player.State.ROTATING:
+	if body is Player and not body.StateMachine == Player.State.ROTATING:
 		Main.ui.begone.emit()

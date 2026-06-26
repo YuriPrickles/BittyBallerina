@@ -1,10 +1,60 @@
 [gd_scene format=3 uid="uid://bve4mgbkrbn7g"]
 
 [ext_resource type="Script" uid="uid://ccxokjutv5mq" path="res://Source/Entities/spring.gd" id="1_sp0jn"]
+[ext_resource type="Texture2D" uid="uid://cisqisn4oph4t" path="res://Assets/Gameplay/objects/spring/spring.png" id="2_ydu2p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_coxhp"]
 resource_local_to_scene = true
 size = Vector2(16, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_65qmp"]
+atlas = ExtResource("2_ydu2p")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmua6"]
+atlas = ExtResource("2_ydu2p")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fx4lx"]
+atlas = ExtResource("2_ydu2p")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ydu2p"]
+atlas = ExtResource("2_ydu2p")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sdrts"]
+atlas = ExtResource("2_ydu2p")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_coxhp"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_65qmp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gmua6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fx4lx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ydu2p")
+}],
+"loop": 0,
+"name": &"boing",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sdrts")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]
 
 [node name="Spring" type="Area2D" unique_id=1511089314]
 collision_layer = 8
@@ -13,5 +63,11 @@ script = ExtResource("1_sp0jn")
 [node name="Collider" type="CollisionShape2D" parent="." unique_id=321427677]
 position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_coxhp")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1825106207]
+sprite_frames = SubResource("SpriteFrames_coxhp")
+animation = &"boing"
+frame = 3
+frame_progress = 1.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -72,18 +72,19 @@ func _process(delta: float) -> void:
 		#camera.set_limit(SIDE_LEFT,current_level.true_bounds.position.x)
 		#camera.set_limit(SIDE_BOTTOM,current_level.true_bounds.position.y + current_level.true_bounds.size.y)
 		#camera.set_limit(SIDE_RIGHT,current_level.true_bounds.position.x + current_level.true_bounds.size.x)
-
+var really_dont_jump:bool = false
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept"):
 		buffer_timer = 0
 		buffering = true
-		if not StateMachine == State.ROTATING and not StateMachine == State.JUMPING and (is_on_floor() or (coyote_timer < COYOTE_MAX)):
+		if not really_dont_jump and not StateMachine == State.ROTATING and not StateMachine == State.JUMPING and (is_on_floor() or (coyote_timer < COYOTE_MAX)):
 			jump()
 			coyote_timer = 0
 			StateMachine = State.JUMPING
 	if StateMachine == State.ROTATING or StateMachine == State.RESPAWNING: return
 	if not is_on_floor():
 		if Input.is_action_just_released("jump"):
+			really_dont_jump = true
 			StateMachine = State.NORMAL
 			if velocity.y < -100:
 				velocity.y = -100
@@ -103,6 +104,7 @@ func _physics_process(delta: float) -> void:
 		#modulate = Color.PURPLE
 	
 	if is_on_floor():
+		really_dont_jump = false
 		if coyote_timer >= 0 and StateMachine == State.NORMAL and spins < MAX_SPINS:
 			#modulate = Color.GREEN
 			spins = MAX_SPINS
@@ -168,6 +170,8 @@ func rotate_level(rot:int,manual=false):
 	tween.tween_property(camera,"rotation_degrees",camera.rotation_degrees + rot,0.5).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.set_parallel()
 	tween.tween_property(Main.main.map,"rotation_degrees",Main.main.map.rotation_degrees - rot,0.5).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(Main.main.map.get_node("VeryBackground"),"rotation",deg_to_rad(Main.main.map.rotation_degrees - rot),0.5).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(Main.main.map.get_node("VeryBackground2"),"rotation",deg_to_rad(Main.main.map.rotation_degrees - rot),0.5).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(player_sprite,"rotation_degrees",player_sprite.rotation_degrees + rot,0.5).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(collider,"rotation_degrees", collider.rotation_degrees + rot,0.5).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.set_parallel(false)
