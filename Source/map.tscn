@@ -647,8 +647,11 @@ size = 2
 dir = -1
 
 [node name="Gear24" parent="a-05" unique_id=1311309550 instance=ExtResource("9_t54s0")]
-position = Vector2(120, 96)
-size = 2
+position = Vector2(128, 88)
+
+[node name="Gear28" parent="a-05" unique_id=1929903091 instance=ExtResource("9_t54s0")]
+position = Vector2(112, 88)
+dir = -1
 
 [node name="Gear27" parent="a-05" unique_id=1637914870 instance=ExtResource("9_t54s0")]
 position = Vector2(40, 48)
@@ -666,7 +669,7 @@ size = 4
 
 [node name="TextTrigger" parent="a-05" unique_id=972190478 instance=ExtResource("10_kbmke")]
 position = Vector2(128, 112)
-text = "[center][font_size=64]Jump while spinning to do a [wave amp=50.0 freq=5.0, connected=0]spinboost[/wave]!
+text = "[center][font_size=64]Jump at the end of a spin to do a [wave amp=50.0 freq=5.0, connected=0]spinboost[/wave]!
 [font_size=48](Only if you were grounded before.)"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=596193414]

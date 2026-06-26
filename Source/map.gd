@@ -28,5 +28,6 @@ func _process(delta: float) -> void:
 		(get_node("CanvasModulate") as CanvasModulate).show()
 		rotation_degrees = roundi(rotation_degrees) % 360
 		#very_background.rotation = deg_to_rad(roundi(rad_to_deg(very_background.rotation)) % 360)
-		#$CanvasLayer/VeryBackground2.rotation = deg_to_rad(roundi(rad_to_deg($CanvasLayer/VeryBackground2.rotation)) % 360)
+		$CanvasLayer.rotation = deg_to_rad(roundi(rad_to_deg($CanvasLayer.rotation)) % 360)
+		$CanvasLayer/CanvasLayer.rotation = deg_to_rad(roundi(rad_to_deg($CanvasLayer/CanvasLayer.rotation)) % 360)
 	pass

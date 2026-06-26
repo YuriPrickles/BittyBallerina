@@ -72,8 +72,7 @@ func _process(delta: float) -> void:
 		tween.tween_property(current_level,"cover_opacity",0,0.3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 
 	prev_level = current_level
-	if StateMachine == State.RESPAWNING:
-		queue_redraw()
+	queue_redraw()
 	#if current_level:
 		#camera.set_limit(SIDE_TOP,current_level.true_bounds.position.y)
 		#camera.set_limit(SIDE_LEFT,current_level.true_bounds.position.x)
@@ -276,13 +275,33 @@ class OnDeathBoom:
 				draw_circle(Vector2(0,-160 * timer).rotated(deg_to_rad(num + timer * 24) ),sin(Engine.get_frames_drawn() * 0.3) + 4,Color.WHITE * absf(max_time + 0.5-timer))
 			else:
 				draw_circle(Vector2(0,-160 * absf(max_time-timer)).rotated(deg_to_rad(num + absf(max_time-timer) * 256) ),sin(Engine.get_frames_drawn() * 0.3) + 4,Color.WHITE * (timer + timer))
+class SpeedRing:
+	extends Node2D
+	var alpha:float = 1.0
+	var vel:Vector2
+	func  _process(delta: float) -> void:
+		alpha -= delta * 0.5
+		if alpha <= 0:
+			queue_free()
+		else: queue_redraw()
+		position -= vel
+	
+	func _draw() -> void:
+		draw_ellipse(Vector2.ZERO,4,2,Color.WHITE * alpha,false)
 
 var normal_b:Texture = preload("res://Assets/Gameplay/characters/ballerina.png")
 var silver_b:Texture = preload("res://Assets/Gameplay/characters/silver_ballerina.png")
 var respawn_orb_size:float = -2
 func _draw() -> void:
-	if draw_respawn_orb:
+	if draw_respawn_orb and StateMachine == State.RESPAWNING:
 		player_sprite.visible = false
 		draw_circle(Vector2(1,1).rotated(Engine.get_frames_drawn()*0.1),sin(Engine.get_frames_drawn() * 0.1) + respawn_orb_size,Color.WHITE)
 	else:
+		if velocity.y < JUMP_VELOCITY:
+			if Engine.get_physics_frames() % 2 == 0:
+				var ring = SpeedRing.new()
+				ring.rotation = velocity.rotated(Main.main.map.rotation + deg_to_rad(90)).angle()
+				ring.position = self.position
+				ring.vel = -0.05 *  velocity.rotated(Main.main.map.rotation + deg_to_rad(0)).normalized()
+				Main.main.map.add_child(ring)
 		player_sprite.visible = true
