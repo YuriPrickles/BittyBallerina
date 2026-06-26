@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://bw75wcia533mx" path="res://Source/Entities/lightbeam.tscn" id="5_bgbnx"]
 [ext_resource type="PackedScene" uid="uid://by7ehs7bbdhpc" path="res://Source/Entities/rotation_gate.tscn" id="6_vtree"]
 [ext_resource type="PackedScene" uid="uid://bxcyyj7y5mn75" path="res://Source/Entities/jumpthrough.tscn" id="7_f1goi"]
-[ext_resource type="PackedScene" uid="uid://bve4mgbkrbn7g" path="res://Source/Entities/spring.tscn" id="8_q6jei"]
 [ext_resource type="PackedScene" uid="uid://bay6uh3eo6ins" path="res://Source/Entities/refill.tscn" id="8_u4x8f"]
 [ext_resource type="PackedScene" uid="uid://c66ghai6untca" path="res://Source/Entities/Gear.tscn" id="9_t54s0"]
 [ext_resource type="PackedScene" uid="uid://c3dx8w8o7nomc" path="res://Source/Entities/text_trigger.tscn" id="10_kbmke"]
@@ -76,9 +75,6 @@ dir = -1
 position = Vector2(216, 112)
 width = 40
 text = "[center][font_size=64]Rotate with[br]\"Q\" and \"E\""
-
-[node name="Spring" parent="a-00" unique_id=1511089314 instance=ExtResource("8_q6jei")]
-position = Vector2(88, 160)
 
 [node name="a-01" parent="." unique_id=626180939 instance=ExtResource("1_deie1")]
 position = Vector2(96, -192)
@@ -706,6 +702,10 @@ stretch_mode = 1
 
 [node name="Player" parent="." unique_id=56060189 instance=ExtResource("13_cpmqh")]
 position = Vector2(48, 160)
+
+[node name="Level" parent="." unique_id=728257906 instance=ExtResource("1_deie1")]
+position = Vector2(1040, -984)
+bounds = Rect2(1040, -984, 40, 40)
 
 [editable path="a-00"]
 [editable path="a-01"]

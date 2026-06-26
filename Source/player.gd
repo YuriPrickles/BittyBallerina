@@ -104,7 +104,8 @@ func _physics_process(delta: float) -> void:
 	if coyote_timer > 0: next_jump_boost = Vector2.ZERO
 	if not StateMachine == State.ROTATING and buffering and buffer_timer < BUFFER_MAX:
 		buffer_timer += delta
-	
+	else:
+		next_jump_boost = Vector2.ZERO
 	if is_on_floor():
 		if not landed:
 			land_audio.play()
