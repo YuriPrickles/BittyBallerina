@@ -16,6 +16,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if not Engine.is_editor_hint():
+		sprite.rotation_degrees = -Main.main.map.rotation_degrees
 		if timer < wait_time:
 			timer += delta
 		else:

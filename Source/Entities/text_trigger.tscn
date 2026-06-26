@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://c3dx8w8o7nomc"]
+
+[ext_resource type="Script" uid="uid://boml1cvs0xac6" path="res://Source/Entities/text_trigger.gd" id="1_3vp44"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_coxhp"]
+resource_local_to_scene = true
+size = Vector2(24, 24)
+
+[node name="TextTrigger" type="Area2D" unique_id=515304860]
+collision_layer = 8
+script = ExtResource("1_3vp44")
+
+[node name="Collider" type="CollisionShape2D" parent="." unique_id=952360998]
+shape = SubResource("RectangleShape2D_coxhp")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

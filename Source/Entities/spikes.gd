@@ -44,10 +44,10 @@ func _on_body_entered(body: Node2D) -> void:
 		var vel:Vector2 = body.velocity
 		vel = vel.round()
 		var final_rotation = Main.normalize_rotation(rotation_degrees + Main.main.map.rotation_degrees)
-		if body.StateMachine != Player.State.RESPAWNING:
-			print(body.velocity)
-			print(vel, " vs ", final_rotation) 
-			print(name)
+		#if body.StateMachine != Player.State.RESPAWNING:
+			#print(body.velocity)
+			#print(vel, " vs ", final_rotation) 
+			#print(name)
 		match final_rotation:
 			0:
 				if vel.y >= 0:

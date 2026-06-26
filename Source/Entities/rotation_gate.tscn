@@ -8,6 +8,7 @@ size = Vector2(24, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tym2y"]
 resource_local_to_scene = true
+size = Vector2(16, 16)
 
 [node name="RotationGate" type="StaticBody2D" unique_id=1156283733]
 z_index = -1

@@ -38,6 +38,7 @@ size = Vector2(12, 12)
 script = ExtResource("1_jc0a5")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=674685622]
+light_mask = 2
 sprite_frames = SubResource("SpriteFrames_coxhp")
 animation = &"idle"
 

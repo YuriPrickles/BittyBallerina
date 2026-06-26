@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://de7a4gspmnnwp"]
+
+[ext_resource type="Script" uid="uid://u8wrtripaoi7" path="res://Source/ui.gd" id="1_petpp"]
+
+[node name="UI" type="Control" unique_id=872302939]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_petpp")
+
+[node name="TextboxMargin" type="MarginContainer" parent="." unique_id=1498269117]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -180.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="ColorRect" type="ColorRect" parent="TextboxMargin" unique_id=1966620464]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+color = Color(0, 0, 0, 0.49803922)
+
+[node name="Margin" type="MarginContainer" parent="TextboxMargin/ColorRect" unique_id=1263757463]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Text" type="RichTextLabel" parent="TextboxMargin/ColorRect/Margin" unique_id=1376822481]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][font_size=64]Jump while spinning to do a [wave]spinboost[/wave]!"

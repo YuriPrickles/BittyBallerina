@@ -28,12 +28,17 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	collider.shape.size = Vector2(width,height)
 	collider.position = Vector2(width,height) / 2
-	area_2d_collider.shape.size = Vector2(width-4,height-4)
+	area_2d_collider.shape.size = Vector2(width-8,height-8)
 	player_detector.position = ((Vector2(width,height)) / 2) 
 	if Engine.is_editor_hint():
 		pass
 		
 	elif Main.main.should_update(self):
+		for body in player_detector.get_overlapping_bodies():
+			if active and body is Player and body is not StaticBody2D:
+				if body.StateMachine == Player.State.ROTATING: return
+				if not body.StateMachine == Player.State.RESPAWNING:
+					body.respawn()
 		queue_redraw()
 		if shake_timer > 0:
 			shake_timer -= delta

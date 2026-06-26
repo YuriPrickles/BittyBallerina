@@ -35,6 +35,9 @@ enum State{
 	RESPAWNING=3,
 }
 var StateMachine:State = State.NORMAL
+
+var vel_override_timer:float = 0
+
 func _ready() -> void:
 	var levels = Main.main.map.levels
 	for level in levels:
@@ -44,6 +47,9 @@ func _ready() -> void:
 			respawn_attached = current_level.get_nearest_respawn(position)
 
 func _process(delta: float) -> void:
+	
+	if Input.is_action_pressed("debug_unkillable"):
+		spins = MAX_SPINS
 	if sign(velocity.x) != 0:
 		player_sprite.flip_h = sign(velocity.x) != 1
 	var levels = Main.main.map.levels
@@ -77,6 +83,10 @@ func _physics_process(delta: float) -> void:
 			StateMachine = State.JUMPING
 	if StateMachine == State.ROTATING or StateMachine == State.RESPAWNING: return
 	if not is_on_floor():
+		if Input.is_action_just_released("jump"):
+			StateMachine = State.NORMAL
+			if velocity.y < -100:
+				velocity.y = -100
 		if not StateMachine == State.JUMPING: coyote_timer += delta
 		else: coyote_timer = 0
 		velocity.y = clampf(velocity.y + (get_gravity().y * delta),-INF, MAX_FALL_SPEED)
@@ -104,33 +114,48 @@ func _physics_process(delta: float) -> void:
 			buffer_timer = 0
 			StateMachine = State.JUMPING
 		
-	var rotate_dir:float = Input.get_axis("rotate_left", "rotate_right")
+	var rotate_dir:float = -Input.get_axis("rotate_left", "rotate_right")
 	if spins > 0 and rotate_dir and not StateMachine == State.ROTATING:
 		var rotation_value = 90 * rotate_dir
 		rotate_level(rotation_value, true)
 	var direction := Input.get_axis("left", "right")
-	if direction:
-		velocity.x = move_toward(velocity.x,direction * SPEED, ACCEL)
+	if vel_override_timer <= 0:
+		if direction:
+			velocity.x = move_toward(velocity.x,direction * SPEED, ACCEL)
+		else:
+			velocity.x = move_toward(velocity.x, 0, DECEL)
 	else:
-		velocity.x = move_toward(velocity.x, 0, DECEL)
+		vel_override_timer -= delta
 	move_and_slide()
 
+func override_vel(vel:Vector2, time=0.2):
+	velocity = vel
+	vel_override_timer = time
+
 func do_animation():
+	var prefix = "s_" if spins < MAX_SPINS else ""
+	if Input.is_action_pressed("debug_unkillable"):
+		animate("%sspin" % prefix,true)
+		player_sprite.speed_scale = 4
+		return
+	else:
+		player_sprite.speed_scale = 1
 	if StateMachine == State.RESPAWNING:
-		animate("death",true,func():draw_respawn_orb=true)
+		animate("%sdeath" % prefix,true,func():draw_respawn_orb=true)
 	elif StateMachine == State.ROTATING:
-		animate("spin",true)
+		animate("%sspin" % prefix,true)
 	elif StateMachine == State.JUMPING:
-		animate("jump",true)
+		animate("%sjump" % prefix,true)
 	elif StateMachine == State.NORMAL:
 		if velocity.x != 0:
-			animate("walk",true)
+			animate("%swalk" % prefix,true)
 		else:
-			animate("idle")
+			animate("%sidle" % prefix)
 	
 
 func jump(vel = JUMP_VELOCITY):
 	if next_jump_boost.y < 0: Main.main.freeze(0.1)
+	velocity.x = velocity.x + next_jump_boost.x + (40 * sign(velocity.x))
 	velocity.y = vel + next_jump_boost.y
 	next_jump_boost = Vector2.ZERO
 
@@ -164,6 +189,8 @@ func camera_shake(strength:float, frames:float,delta:float):
 	camera.offset = Vector2.ZERO
 
 func respawn():
+	if Input.is_action_pressed("debug_unkillable"):
+		return
 	Main.main.freeze(0.1)
 	print(StateMachine)
 	if not StateMachine == State.RESPAWNING:
@@ -191,6 +218,7 @@ func respawn():
 			queue_redraw()
 			respawn_orb_size = -2
 			)
+
 func animate(animation:String, interrupt:bool=true, callback:Callable=func():pass):
 	if not interrupt:
 		await player_sprite.animation_looped
@@ -227,6 +255,8 @@ class OnDeathBoom:
 			else:
 				draw_circle(Vector2(0,-160 * absf(max_time-timer)).rotated(deg_to_rad(num + absf(max_time-timer) * 256) ),sin(Engine.get_frames_drawn() * 0.3) + 4,Color.WHITE * (timer + timer))
 
+var normal_b:Texture = preload("res://Assets/Gameplay/characters/ballerina.png")
+var silver_b:Texture = preload("res://Assets/Gameplay/characters/silver_ballerina.png")
 var respawn_orb_size:float = -2
 func _draw() -> void:
 	if draw_respawn_orb:
@@ -234,4 +264,3 @@ func _draw() -> void:
 		draw_circle(Vector2(1,1).rotated(Engine.get_frames_drawn()*0.1),sin(Engine.get_frames_drawn() * 0.1) + respawn_orb_size,Color.WHITE)
 	else:
 		player_sprite.visible = true
-	pass

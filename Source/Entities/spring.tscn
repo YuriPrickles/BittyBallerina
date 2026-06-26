@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bve4mgbkrbn7g"]
+
+[ext_resource type="Script" uid="uid://ccxokjutv5mq" path="res://Source/Entities/spring.gd" id="1_sp0jn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_coxhp"]
+resource_local_to_scene = true
+size = Vector2(16, 4)
+
+[node name="Spring" type="Area2D" unique_id=1511089314]
+collision_layer = 8
+script = ExtResource("1_sp0jn")
+
+[node name="Collider" type="CollisionShape2D" parent="." unique_id=321427677]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_coxhp")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
