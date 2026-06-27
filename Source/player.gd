@@ -128,7 +128,7 @@ func _physics_process(delta: float) -> void:
 			buffer_timer = 0
 			StateMachine = State.JUMPING
 		
-	var rotate_dir:float = -Input.get_axis("rotate_left", "rotate_right")
+	var rotate_dir:int = roundi(-Input.get_axis("rotate_left", "rotate_right"))
 	if spins > 0 and rotate_dir and not StateMachine == State.ROTATING:
 		var rotation_value = 90 * rotate_dir
 		rotate_level(rotation_value, true)
@@ -199,6 +199,10 @@ func rotate_level(rot:int,manual=false):
 	tween.set_parallel(false)
 	tween.tween_callback(func():
 		StateMachine = state_to_return
+		Main.main.send_spin_L = false
+		Main.main.send_spin_R = false
+		Main.main.send_jump = false
+		Main.main.listen_for_inputs = false
 		if was_on_floor:
 			if not is_on_floor():
 				StateMachine = State.JUMPING
@@ -217,6 +221,10 @@ func camera_shake(strength:float, frames:float,delta:float):
 func respawn():
 	if Input.is_action_pressed("debug_unkillable"):
 		return
+	Main.main.send_spin_L = false
+	Main.main.send_spin_R = false
+	Main.main.send_jump = false
+	Main.main.listen_for_inputs = false
 	Main.main.freeze(0.1)
 	death_audio.play()
 	print(StateMachine)
