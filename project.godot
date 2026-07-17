@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="SpinToWinGame"
+config/name="BittyBallerina"
 run/main_scene="uid://cwg3mx15fsn01"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 boot_splash/bg_color=Color(0.4117647, 0.14509805, 0.08235294, 1)
