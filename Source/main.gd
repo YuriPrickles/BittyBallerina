@@ -54,7 +54,10 @@ func get_player() -> Player:
 	return map.get_node("Player")
 
 func should_update(entity:Node) -> bool:
-	return get_player().current_level == (entity.get_parent() as Level)
+	var level_parent = (entity.get_parent())
+	while level_parent is not Level:
+		level_parent = (level_parent.get_parent() as Level)
+	return get_player().current_level == level_parent
 
 static func normalize_rotation(degrees:float) -> int:
 	if roundi(degrees) == 360: return 0

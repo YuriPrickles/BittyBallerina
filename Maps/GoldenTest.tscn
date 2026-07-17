@@ -54,24 +54,26 @@ position = Vector2(144, 0)
 width = 24
 height = 24
 
-[node name="Gear" parent="Levels/a-00" index="8" unique_id=230441047 instance=ExtResource("6_x5n3w")]
+[node name="Node2D" type="Node2D" parent="Levels/a-00" index="8" unique_id=1826626485]
+
+[node name="Gear" parent="Levels/a-00/Node2D" index="0" unique_id=230441047 instance=ExtResource("6_x5n3w")]
 position = Vector2(40, 88)
 size = 4
 
-[node name="Gear3" parent="Levels/a-00" index="9" unique_id=1751562206 instance=ExtResource("6_x5n3w")]
+[node name="Gear3" parent="Levels/a-00/Node2D" index="1" unique_id=1751562206 instance=ExtResource("6_x5n3w")]
 position = Vector2(64, 72)
 dir = -1
 
-[node name="Gear2" parent="Levels/a-00" index="10" unique_id=1509605096 instance=ExtResource("6_x5n3w")]
+[node name="Gear2" parent="Levels/a-00/Node2D" index="2" unique_id=1509605096 instance=ExtResource("6_x5n3w")]
 position = Vector2(136, 160)
 size = 2
 
-[node name="Gear4" parent="Levels/a-00" index="11" unique_id=564221877 instance=ExtResource("6_x5n3w")]
+[node name="Gear4" parent="Levels/a-00/Node2D" index="3" unique_id=564221877 instance=ExtResource("6_x5n3w")]
 position = Vector2(24, 120)
 size = 2
 dir = -1
 
-[node name="TextTrigger" parent="Levels/a-00" index="12" unique_id=515304860 instance=ExtResource("7_jh48n")]
+[node name="TextTrigger" parent="Levels/a-00" index="9" unique_id=515304860 instance=ExtResource("7_jh48n")]
 position = Vector2(216, 112)
 width = 40
 text = "[center][font_size=64]Rotate with \"Q\" and \"E\"[br][font_size=32](or left and right brackets)"

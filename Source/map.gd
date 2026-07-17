@@ -12,10 +12,11 @@ var normalized_rotation: int:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	Main.main.map = self
-	for child in levels_node.get_children():
-		levels.append(child)
-	Main.main.get_player().initialize_player()
+	if not Engine.is_editor_hint():
+		Main.main.map = self
+		for child in levels_node.get_children():
+			levels.append(child)
+		Main.main.get_player().initialize_player()
 #@onready var very_background: CanvasLayer = $CanvasLayer/VeryBackground
 var added = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
