@@ -1,7 +1,7 @@
 class_name Main
 extends Node
 
-@export var map:Map
+var map:Map
 
 enum Depths{
 	LevelCover = 99,
@@ -18,12 +18,14 @@ static var ui: UI
 static var main:Main
 
 const VOID_COLOR:Color = Color("ffffffff")
+@onready var sub_viewport: SubViewport = $GameplayContainer/SubViewport
 
 func _init() -> void:
 	main = self
 
 func _ready() -> void:
 	ui = $UI
+	map = sub_viewport.get_child(0)
 var saved_input
 @onready var music: AudioStreamPlayer = $Music
 
@@ -48,6 +50,7 @@ func _process(delta: float) -> void:
 			#return
 
 func get_player() -> Player:
+	if not map: return null
 	return map.get_node("Player")
 
 func should_update(entity:Node) -> bool:

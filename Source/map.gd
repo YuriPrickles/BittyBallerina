@@ -1,14 +1,21 @@
 @tool
 class_name Map
 extends Node2D
+@onready var levels_node: Node2D = $Levels
 
-@export var levels:Array[Level]
+var levels:Array[Level]
 
-var normalized_rotation: int = 0
+var normalized_rotation: int:
+	get:
+		if not Main.main.map: return 0
+		else: return normalized_rotation
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	Main.main.map = self
+	for child in levels_node.get_children():
+		levels.append(child)
+	Main.main.get_player().initialize_player()
 #@onready var very_background: CanvasLayer = $CanvasLayer/VeryBackground
 var added = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.

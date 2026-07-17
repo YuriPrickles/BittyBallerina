@@ -42,6 +42,7 @@ func _process(delta: float) -> void:
 var rotate_wait:bool = false
 func _input(event: InputEvent) -> void:
 	var plr = Main.main.get_player()
+	if not plr: return
 	if Input.is_action_just_pressed("cancel") and plr.StateMachine != Player.State.RESPAWNING:
 		if active:
 			disappear()

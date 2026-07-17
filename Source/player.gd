@@ -45,6 +45,9 @@ var StateMachine:State = State.NORMAL
 var vel_override_timer:float = 0
 
 func _ready() -> void:
+	pass
+
+func initialize_player():
 	var levels = Main.main.map.levels
 	for level in levels:
 		if level.true_bounds.has_point(position):
