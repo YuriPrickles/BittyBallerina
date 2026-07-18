@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://by7ehs7bbdhpc"]
 
 [ext_resource type="Script" uid="uid://vvqkmv4dhstu" path="res://Source/Entities/rotation_gate.gd" id="1_tym2y"]
-[ext_resource type="AudioStream" uid="uid://bpo6b6vukgfs5" path="res://Assets/SFX/mech_sounds/Single_Mechanical Pack Vol 1_Heavy Wooden Door on Rails_Close_Short.wav" id="2_lgtkn"]
+[ext_resource type="AudioStream" uid="uid://bpo6b6vukgfs5" path="res://Assets/Audio/SFX/mech_sounds/Single_Mechanical Pack Vol 1_Heavy Wooden Door on Rails_Close_Short.wav" id="2_lgtkn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_coxhp"]
 resource_local_to_scene = true

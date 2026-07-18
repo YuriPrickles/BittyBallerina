@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://dymuy8o10knkv"]
 
-[ext_resource type="PackedScene" uid="uid://d3vq2ppbr2t3v" path="res://Source/map.tscn" id="1_6smn0"]
-[ext_resource type="PackedScene" uid="uid://b6hcy4rhuf2lo" path="res://Source/level.tscn" id="2_4q0ar"]
+[ext_resource type="PackedScene" uid="uid://d3vq2ppbr2t3v" path="res://Source/Mapmaking/map.tscn" id="1_6smn0"]
+[ext_resource type="PackedScene" uid="uid://b6hcy4rhuf2lo" path="res://Source/Mapmaking/level.tscn" id="2_4q0ar"]
 [ext_resource type="PackedScene" uid="uid://hh8shc8losm" path="res://Source/Entities/spikes.tscn" id="3_ky6d7"]
 [ext_resource type="PackedScene" uid="uid://danquxggytn4f" path="res://Source/Entities/respawn.tscn" id="4_u5blj"]
 [ext_resource type="PackedScene" uid="uid://bw75wcia533mx" path="res://Source/Entities/lightbeam.tscn" id="5_28h2n"]

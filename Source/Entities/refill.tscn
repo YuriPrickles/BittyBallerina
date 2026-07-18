@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://ci6anrd4fhfoa" path="res://Source/Entities/refill.gd" id="1_jc0a5"]
 [ext_resource type="Texture2D" uid="uid://dqma0h0xcyc2d" path="res://Assets/Gameplay/objects/refill/refill.png" id="1_qlkg5"]
 [ext_resource type="Texture2D" uid="uid://cy8dar1ng1ad2" path="res://Assets/Misc/pointlight.png" id="3_665if"]
-[ext_resource type="AudioStream" uid="uid://84iiuchpxdnw" path="res://Assets/SFX/mech_sounds/Single_Mechanical Pack Vol 1_Misc Mechanical Device Lock_Close_01.wav" id="4_v4b3g"]
-[ext_resource type="AudioStream" uid="uid://m8ilmnmwjsya" path="res://Assets/SFX/metal_clang.wav" id="4_yl12e"]
-[ext_resource type="AudioStream" uid="uid://dm8bmfh0hxnwv" path="res://Assets/SFX/hurt.wav" id="5_4swje"]
-[ext_resource type="AudioStream" uid="uid://weaqesea3jfb" path="res://Assets/SFX/glass_ping_small.wav" id="5_6up18"]
-[ext_resource type="AudioStream" uid="uid://bh6bobepl7ful" path="res://Assets/SFX/grand_piano_chime_positive.wav" id="7_a86le"]
+[ext_resource type="AudioStream" uid="uid://84iiuchpxdnw" path="res://Assets/Audio/SFX/mech_sounds/Single_Mechanical Pack Vol 1_Misc Mechanical Device Lock_Close_01.wav" id="4_v4b3g"]
+[ext_resource type="AudioStream" uid="uid://m8ilmnmwjsya" path="res://Assets/Audio/SFX/metal_clang.wav" id="4_yl12e"]
+[ext_resource type="AudioStream" uid="uid://dm8bmfh0hxnwv" path="res://Assets/Audio/SFX/hurt.wav" id="5_4swje"]
+[ext_resource type="AudioStream" uid="uid://weaqesea3jfb" path="res://Assets/Audio/SFX/glass_ping_small.wav" id="5_6up18"]
+[ext_resource type="AudioStream" uid="uid://bh6bobepl7ful" path="res://Assets/Audio/SFX/grand_piano_chime_positive.wav" id="7_a86le"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jc0a5"]
 atlas = ExtResource("1_qlkg5")

@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dqma0h0xcyc2d" path="res://Assets/Gameplay/objects/refill/refill.png" id="2_ub0fs"]
 [ext_resource type="Texture2D" uid="uid://cy8dar1ng1ad2" path="res://Assets/Misc/pointlight.png" id="3_22wq7"]
 [ext_resource type="Texture2D" uid="uid://b12fgt38tcyba" path="res://Assets/Gameplay/magicrest.png" id="3_ub0fs"]
-[ext_resource type="AudioStream" uid="uid://bh6bobepl7ful" path="res://Assets/SFX/grand_piano_chime_positive.wav" id="5_e31rs"]
+[ext_resource type="AudioStream" uid="uid://bh6bobepl7ful" path="res://Assets/Audio/SFX/grand_piano_chime_positive.wav" id="5_e31rs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jc0a5"]
 atlas = ExtResource("2_ub0fs")
