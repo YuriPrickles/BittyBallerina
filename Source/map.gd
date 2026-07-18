@@ -2,6 +2,7 @@
 class_name Map
 extends Node2D
 @onready var levels_node: Node2D = $Levels
+@onready var background_node: Node2D = $CanvasLayer/CanvasLayer/BackgroundNode
 
 var levels:Array[Level]
 
@@ -16,18 +17,24 @@ func _ready() -> void:
 		Main.main.map = self
 		for child in levels_node.get_children():
 			levels.append(child)
+		if not Engine.is_editor_hint():
+			level_cover.levels = levels
+			for bg:Parallax2D in background_node.get_children():
+				var dupe = bg.duplicate()
+				dupe.z_as_relative = true
+				dupe.z_index = 0
+				level_cover.add_child(dupe)
+			$CanvasLayer.add_child(level_cover)
 		Main.main.get_player().initialize_player()
 #@onready var very_background: CanvasLayer = $CanvasLayer/VeryBackground
 var added = false
+var level_cover:LevelCover = preload("res://Source/level_cover.tscn").instantiate()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if not added:
 		added = true
-		
-		if not Engine.is_editor_hint():
-			var level_cover:LevelCover = preload("res://Source/level_cover.tscn").instantiate()
-			level_cover.levels = levels
-			$CanvasLayer.add_child(level_cover)
+		#for bg:Parallax2D in background_node.get_children():
+			#bg.scroll_offset = Vector2.ZERO
 
 	if Engine.is_editor_hint():
 		(get_node("CanvasModulate") as CanvasModulate).hide()

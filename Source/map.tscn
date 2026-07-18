@@ -21,7 +21,9 @@ follow_viewport_enabled = true
 layer = -1
 follow_viewport_enabled = true
 
-[node name="Parallax2D" type="Parallax2D" parent="CanvasLayer/CanvasLayer" unique_id=1618184711]
+[node name="BackgroundNode" type="Node2D" parent="CanvasLayer/CanvasLayer" unique_id=1962993512]
+
+[node name="Parallax2D" type="Parallax2D" parent="CanvasLayer/CanvasLayer/BackgroundNode" unique_id=1618184711]
 z_index = -99
 z_as_relative = false
 texture_filter = 1
@@ -32,7 +34,7 @@ repeat_times = 100
 ignore_camera_scroll = true
 screen_offset = Vector2(-8, -8)
 
-[node name="Background" type="TextureRect" parent="CanvasLayer/CanvasLayer/Parallax2D" unique_id=1505699493]
+[node name="Background" type="TextureRect" parent="CanvasLayer/CanvasLayer/BackgroundNode/Parallax2D" unique_id=1505699493]
 clip_children = 2
 texture_filter = 1
 anchors_preset = 15

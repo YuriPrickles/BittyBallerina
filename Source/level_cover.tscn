@@ -1,30 +1,9 @@
 [gd_scene format=3 uid="uid://cyi3wcfagowlc"]
 
 [ext_resource type="Script" uid="uid://qr1y4x754xqk" path="res://Source/level_cover.gd" id="1_ns5ph"]
-[ext_resource type="Texture2D" uid="uid://cb2omk1d8epks" path="res://Assets/Gameplay/backgrounds/background.png" id="2_16vuh"]
 
 [node name="LevelCover" type="Node2D" unique_id=793814912]
 clip_children = 2
 z_index = 99
 z_as_relative = false
 script = ExtResource("1_ns5ph")
-
-[node name="Parallax2D" type="Parallax2D" parent="." unique_id=739357095]
-texture_filter = 1
-scroll_scale = Vector2(0.5, 0.5)
-repeat_size = Vector2(192, 192)
-autoscroll = Vector2(25, 25)
-repeat_times = 100
-ignore_camera_scroll = true
-
-[node name="Background" type="TextureRect" parent="Parallax2D" unique_id=828216068]
-texture_filter = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 192.0
-offset_bottom = 192.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_16vuh")
-stretch_mode = 1

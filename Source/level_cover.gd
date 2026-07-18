@@ -2,7 +2,6 @@ class_name LevelCover
 extends Node2D
 var levels:Array[Level]
 var draw_cover:bool = false
-
 func _ready() -> void:
 	pass
 	#var spr = Sprite2D.new()
