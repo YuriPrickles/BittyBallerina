@@ -4,7 +4,7 @@ extends CharacterBody2D
 
 const SPEED = 120.0
 const ACCEL = 20.0
-const DECEL = 40.0
+const DECEL = 20.0
 const JUMP_VELOCITY = -225.0
 const MAX_FALL_SPEED = 200
 @onready var camera: Camera2D = $Camera2D
