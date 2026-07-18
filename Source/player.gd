@@ -30,7 +30,7 @@ var respawn_attached: Respawn
 var draw_respawn_orb:bool=false
 var crouching:bool = false
 var stored_crouch_vel:Vector2
-
+var direction:int = 0
 var next_jump_boost:Vector2 = Vector2.ZERO
 
 var spins = 1
@@ -63,8 +63,6 @@ func _process(delta: float) -> void:
 		spins = MAX_SPINS
 		coyote_timer = 0.05
 		really_dont_jump = false
-	if sign(velocity.x) != 0:
-		player_sprite.flip_h = sign(velocity.x) != 1
 	var levels = Main.main.map.levels
 	do_animation()
 	for level in levels:
@@ -154,7 +152,9 @@ func _physics_process(delta: float) -> void:
 		rotate_level(rotation_value, true)
 	if Input.is_action_just_pressed("debug_unkillable"):
 		walk_audio.play()
-	var direction := Input.get_axis("left", "right")
+	direction = Input.get_axis("left", "right")
+	if sign(direction) != 0:
+		player_sprite.flip_h = sign(direction) != 1
 	if vel_override_timer <= 0:
 		if direction and (not crouching or not is_on_floor()):
 			velocity.x = move_toward(velocity.x,direction * SPEED, ACCEL)
@@ -192,8 +192,8 @@ func do_animation():
 func jump(vel = JUMP_VELOCITY):
 	if crouching and abs(stored_crouch_vel.x) >= 80:
 		crouching = false
-		next_jump_boost.x = 160 * sign(stored_crouch_vel.x)
-		next_jump_boost.y = 40
+		next_jump_boost.x = 160 * sign(direction)
+		next_jump_boost.y = 80
 	if Input.is_action_pressed("debug_unkillable"):
 		next_jump_boost.y = JUMP_VELOCITY
 	if next_jump_boost.y < 0:
