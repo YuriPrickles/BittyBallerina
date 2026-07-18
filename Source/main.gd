@@ -2,7 +2,7 @@ class_name Main
 extends Node
 
 var map:Map
-
+@export var map_to_load:PackedScene
 enum Depths{
 	LevelCover = 99,
 	Player  = 0,
@@ -25,6 +25,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	ui = $UI
+	sub_viewport.add_child(map_to_load.instantiate())
 	map = sub_viewport.get_child(0)
 var saved_input
 @onready var music: AudioStreamPlayer = $Music

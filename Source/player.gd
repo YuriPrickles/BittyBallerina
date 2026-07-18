@@ -28,6 +28,8 @@ var current_level:Level = null
 var prev_level:Level = null
 var respawn_attached: Respawn
 var draw_respawn_orb:bool=false
+var crouching:bool = false
+var stored_crouch_vel:Vector2
 
 var next_jump_boost:Vector2 = Vector2.ZERO
 
@@ -100,7 +102,7 @@ func _physics_process(delta: float) -> void:
 			StateMachine = State.JUMPING
 	if StateMachine == State.ROTATING or StateMachine == State.RESPAWNING: return
 	if not is_on_floor():
-		
+		crouching = Input.is_action_pressed("down") if crouching else crouching
 		landed = false
 		if Input.is_action_just_released("jump"):
 			really_dont_jump = true
@@ -110,12 +112,8 @@ func _physics_process(delta: float) -> void:
 		if not StateMachine == State.JUMPING: coyote_timer += delta
 		else: coyote_timer = 0
 		velocity.y = clampf(velocity.y + (get_gravity().y * delta),-INF, MAX_FALL_SPEED)
-	if coyote_timer > 0: next_jump_boost = Vector2.ZERO
-	if not StateMachine == State.ROTATING and buffering and buffer_timer < BUFFER_MAX:
-		buffer_timer += delta
 	else:
-		next_jump_boost = Vector2.ZERO
-	if is_on_floor():
+		crouching = Input.is_action_pressed("down")
 		if not landed:
 			land_audio.play()
 			landed = true
@@ -130,17 +128,35 @@ func _physics_process(delta: float) -> void:
 			jump()
 			buffer_timer = 0
 			StateMachine = State.JUMPING
-		
+	if coyote_timer > 0: next_jump_boost = Vector2.ZERO
+	if not StateMachine == State.ROTATING and buffering and buffer_timer < BUFFER_MAX:
+		buffer_timer += delta
+	else:
+		next_jump_boost = Vector2.ZERO
+	var rect = (collider.shape as RectangleShape2D)
+	if crouching:
+		if stored_crouch_vel == Vector2.ZERO:
+			stored_crouch_vel = velocity
+		print(stored_crouch_vel)
+		rect.size = Vector2(8,6)
+		collider.position = Vector2(0,3).rotated(collider.rotation)
+		player_sprite.scale.y = 0.75
+		player_sprite.offset = Vector2(-8,-8)
+	else:
+		stored_crouch_vel = Vector2.ZERO
+		rect.size = Vector2(8,12)
+		collider.position = Vector2(0,0)
+		player_sprite.scale.y = 1
+		player_sprite.offset = Vector2(-8,-10)
 	var rotate_dir:int = roundi(-Input.get_axis("rotate_left", "rotate_right"))
 	if spins > 0 and rotate_dir and not StateMachine == State.ROTATING:
 		var rotation_value = 90 * rotate_dir
 		rotate_level(rotation_value, true)
 	if Input.is_action_just_pressed("debug_unkillable"):
-		
 		walk_audio.play()
 	var direction := Input.get_axis("left", "right")
 	if vel_override_timer <= 0:
-		if direction:
+		if direction and (not crouching or not is_on_floor()):
 			velocity.x = move_toward(velocity.x,direction * SPEED, ACCEL)
 		else:
 			velocity.x = move_toward(velocity.x, 0, DECEL)
@@ -174,6 +190,10 @@ func do_animation():
 	
 
 func jump(vel = JUMP_VELOCITY):
+	if crouching and abs(stored_crouch_vel.x) >= 80:
+		crouching = false
+		next_jump_boost.x = 160 * sign(stored_crouch_vel.x)
+		next_jump_boost.y = 40
 	if Input.is_action_pressed("debug_unkillable"):
 		next_jump_boost.y = JUMP_VELOCITY
 	if next_jump_boost.y < 0:
