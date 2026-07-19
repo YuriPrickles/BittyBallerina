@@ -20,7 +20,9 @@ func _draw() -> void:
 		material.blend_mode = CanvasItemMaterial.BLEND_MODE_PREMULT_ALPHA
 	for level in levels:
 		if not level or Engine.is_editor_hint(): return
-		for i in range(0,24,1):
-			draw_rect(Rect2(level.position,level.true_bounds.size),Main.VOID_COLOR * 0.12, false,i,false)
+		for i in range(0,12,1):
+			draw_rect(Rect2(level.position,level.true_bounds.size),Main.VOID_COLOR * 0.5, false,i,false)
+		for i in range(0,32,1):
+			draw_rect(Rect2(level.position,level.true_bounds.size),Main.VOID_COLOR * 0.1, false,i,false)
 		if Main.main.get_player().current_level != level:
 			draw_rect(Rect2(level.position,level.true_bounds.size),Main.VOID_COLOR * level.cover_opacity, true)

@@ -1,26 +1,36 @@
 @tool
-class_name Gear
+class_name Spinner
 extends Area2D
 
 @onready var circle_collider: CollisionShape2D = $CircleCollider
 @onready var rect_collider: CollisionShape2D = $RectCollider
 
 enum Sizes {
+	##Corresponds to [code]01.png[/code]
 	Small = 1,
+	##Corresponds to [code]02.png[/code]
 	Medium = 2,
+	##Corresponds to [code]04.png[/code]
 	Giant = 4
 }
 
 @export var size:Sizes = Sizes.Small
-@export_enum("Clockwise:1", "Counter-Clockwise:-1") var dir:int = 1
-var texture:Texture2D = load("res://Assets/Gameplay/objects/gears/gear_1.png")
+##The spinner will not rotate when set to "Zilch".
+@export_enum("Zilch:0","Clockwise:1", "Counter-Clockwise:-1") var dir:int = 1
+##Name of folder in [code]res://Assets/Gameplay/objects/spinners/[/code][br][br]
+##Place the sprites for the different spinner sizes as:[br]
+##[code]01.png[/code] - Small[br]
+##[code]02.png[/code] - Medium[br]
+##[code]04.png[/code] - Giant[br]
+@export var folder_name:String = "gear"
+var texture:Texture2D = load("res://Assets/Gameplay/objects/spinners/%s/01.png" % folder_name)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	texture = load("res://Assets/Gameplay/objects/gears/gear_%s.png" % size)
+	texture = load("res://Assets/Gameplay/objects/spinners/%s/0%s.png" % [folder_name, size])
 	if size == Sizes.Small:
-		(circle_collider.shape as CircleShape2D).radius = (9 * size) - (size * 2)
+		(circle_collider.shape as CircleShape2D).radius = (9 * size) - (size * 3)
 		(rect_collider.shape as RectangleShape2D).size = Vector2(16 * size, 2 * size)
 	else:
 		(circle_collider.shape as CircleShape2D).radius = (8 * size) - (size * 1)

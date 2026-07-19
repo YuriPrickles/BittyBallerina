@@ -2,6 +2,7 @@
 class_name Respawn
 extends Node2D
 
+##The rotation that the player is respawned at.
 @export var default_rotation:DefaultRotations = DefaultRotations.UP
 
 enum DefaultRotations{

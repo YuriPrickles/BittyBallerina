@@ -67,7 +67,7 @@ script = ExtResource("1_jc0a5")
 light_mask = 2
 sprite_frames = SubResource("SpriteFrames_coxhp")
 animation = &"idle"
-offset = Vector2(0, -0.50607485)
+offset = Vector2(0, 0.9876386)
 
 [node name="Collider" type="CollisionShape2D" parent="." unique_id=1239379123]
 shape = SubResource("RectangleShape2D_coxhp")

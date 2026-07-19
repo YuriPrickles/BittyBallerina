@@ -1,12 +1,11 @@
 @tool
 class_name Level
 extends Node2D
-
 @export var bounds:Rect2
 @export var foreground_tiles: TileMapLayer
 var true_bounds:Rect2:
 	get:
-		return Rect2(bounds.position,bounds.size * 8)
+		return Rect2(bounds.position,bounds.size * 16)
 
 var cover_opacity:float = 1
 
@@ -23,12 +22,6 @@ func _process(delta: float) -> void:
 		queue_redraw()
 	else:
 		queue_redraw()
-		
-func reset_stuff():
-	for child in get_children():
-		if child is Refill:
-			child.timer = child.wait_time
-			child.show()
 
 func get_nearest_respawn(pos:Vector2):
 	var distance = INF

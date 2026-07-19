@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0j2ixinmf5k1"
-path="res://.godot/imported/gear_2.png-ce8e71575cb8fe3114083498c7be1427.ctex"
+uid="uid://dxrbel14akx52"
+path="res://.godot/imported/SpikeSpriteGuide.png-391facb78776b866a19b5da086e95378.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Gameplay/objects/gears/gear_2.png"
-dest_files=["res://.godot/imported/gear_2.png-ce8e71575cb8fe3114083498c7be1427.ctex"]
+source_file="res://Assets/Gameplay/objects/spikes/SpikeSpriteGuide.png"
+dest_files=["res://.godot/imported/SpikeSpriteGuide.png-391facb78776b866a19b5da086e95378.ctex"]
 
 [params]
 

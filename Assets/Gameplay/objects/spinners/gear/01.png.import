@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djna1t68vun2n"
-path="res://.godot/imported/tileset-export.png-8fd25d34f1d45e8bc2079e78cc8c5ee8.ctex"
+uid="uid://bpg0ivd3aid15"
+path="res://.godot/imported/01.png-8fa7eb63b5ab5674e8d8187f3086798a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Gameplay/tilesets/tileset-export.png"
-dest_files=["res://.godot/imported/tileset-export.png-8fd25d34f1d45e8bc2079e78cc8c5ee8.ctex"]
+source_file="res://Assets/Gameplay/objects/spinners/gear/01.png"
+dest_files=["res://.godot/imported/01.png-8fa7eb63b5ab5674e8d8187f3086798a.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://csaj68lu82rpo"
-path="res://.godot/imported/gears.png-c4c7164cdc49974f5937eb046c5daf7f.ctex"
+uid="uid://bwspepu7d6nj"
+path="res://.godot/imported/newbigtiletest.png-c7a25b61a73852b0ae49baa2030f2550.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Gameplay/objects/gears/gears.png"
-dest_files=["res://.godot/imported/gears.png-c4c7164cdc49974f5937eb046c5daf7f.ctex"]
+source_file="res://Assets/Gameplay/tilesets/testnew/newbigtiletest.png"
+dest_files=["res://.godot/imported/newbigtiletest.png-c7a25b61a73852b0ae49baa2030f2550.ctex"]
 
 [params]
 

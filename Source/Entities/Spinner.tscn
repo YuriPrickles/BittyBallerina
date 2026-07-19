@@ -1,19 +1,19 @@
 [gd_scene format=3 uid="uid://c66ghai6untca"]
 
-[ext_resource type="Script" uid="uid://cyo182l6ilpw6" path="res://Source/Entities/gear.gd" id="1_vbpmm"]
+[ext_resource type="Script" uid="uid://cyo182l6ilpw6" path="res://Source/Entities/spinner.gd" id="1_cshfq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_coxhp"]
 resource_local_to_scene = true
-radius = 7.0
+radius = 6.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_coxhp"]
 resource_local_to_scene = true
-size = Vector2(16, 2)
+size = Vector2(16, 4)
 
 [node name="Gear" type="Area2D" unique_id=230441047]
 z_index = -3
 z_as_relative = false
-script = ExtResource("1_vbpmm")
+script = ExtResource("1_cshfq")
 
 [node name="CircleCollider" type="CollisionShape2D" parent="." unique_id=1906205398]
 shape = SubResource("CircleShape2D_coxhp")

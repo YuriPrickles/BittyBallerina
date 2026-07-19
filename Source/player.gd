@@ -1,11 +1,12 @@
 class_name Player
 extends CharacterBody2D
 
+signal reset_room
 
 const SPEED = 120.0
 const ACCEL = 20.0
 const DECEL = 20.0
-const JUMP_VELOCITY = -225.0
+const JUMP_VELOCITY = -255.0
 const MAX_FALL_SPEED = 200
 @onready var camera: Camera2D = $Camera2D
 @onready var player_sprite: AnimatedSprite2D = $PlayerSprite
@@ -274,7 +275,7 @@ func respawn():
 		
 		tween.set_parallel(false)
 		tween.tween_callback(func():
-			current_level.reset_stuff()
+			reset_room.emit()
 			buffer_timer = BUFFER_MAX
 			buffering = false
 			coyote_timer = COYOTE_MAX
