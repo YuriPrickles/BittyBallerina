@@ -1,0 +1,147 @@
+[gd_scene format=3 uid="uid://b3ljcs6lc261d"]
+
+[ext_resource type="Script" uid="uid://cbpr7yoabhbjl" path="res://Source/rotating_pause_menu.gd" id="1_i06nf"]
+[ext_resource type="Script" uid="uid://k38ilul7k7cl" path="res://Source/settingsmenu.gd" id="2_nrs1p"]
+
+[node name="PauseMenu" type="ColorRect" unique_id=688660983]
+process_mode = 3
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6862745)
+
+[node name="VBoxContainer" type="MarginContainer" parent="." unique_id=2007007667]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.5
+offset_right = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=995300696]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/VBoxContainer" unique_id=386760756]
+layout_mode = 2
+bbcode_enabled = true
+text = "[font_size=128][center]Paused[br][font_size=48][center]<<< [Q]------------[E] >>>"
+fit_content = true
+scroll_active = false
+
+[node name="VBoxContainer2" type="CenterContainer" parent="VBoxContainer/VBoxContainer" unique_id=1367342173]
+layout_mode = 2
+size_flags_vertical = 3
+offset_transform_enabled = true
+script = ExtResource("1_i06nf")
+
+[node name="Continue" type="RichTextLabel" parent="VBoxContainer/VBoxContainer/VBoxContainer2" unique_id=494995294]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -256)
+offset_transform_pivot = Vector2(0, 256)
+bbcode_enabled = true
+text = "[font_size=64][center]Continue"
+fit_content = true
+scroll_active = false
+
+[node name="Respawn" type="RichTextLabel" parent="VBoxContainer/VBoxContainer/VBoxContainer2" unique_id=2047040971]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -256)
+offset_transform_rotation = 1.5707964
+offset_transform_pivot = Vector2(0, 256)
+bbcode_enabled = true
+text = "[font_size=64][center]Respawn"
+fit_content = true
+scroll_active = false
+
+[node name="Exit" type="RichTextLabel" parent="VBoxContainer/VBoxContainer/VBoxContainer2" unique_id=1038011498]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -256)
+offset_transform_rotation = 3.1415927
+offset_transform_pivot = Vector2(0, 256)
+bbcode_enabled = true
+text = "[font_size=64][center]Exit
+"
+fit_content = true
+scroll_active = false
+
+[node name="Settings" type="RichTextLabel" parent="VBoxContainer/VBoxContainer/VBoxContainer2" unique_id=1944407476]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -256)
+offset_transform_rotation = 4.712389
+offset_transform_pivot = Vector2(0, 256)
+bbcode_enabled = true
+text = "[font_size=64][center]Settings"
+fit_content = true
+scroll_active = false
+
+[node name="SettingsMenu" type="MarginContainer" parent="." unique_id=308976581]
+visible = false
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.5
+offset_right = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsMenu" unique_id=1860266161]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SettingsMenu/VBoxContainer" unique_id=894020443]
+layout_mode = 2
+bbcode_enabled = true
+text = "[font_size=128][center]Settings"
+fit_content = true
+scroll_active = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsMenu/VBoxContainer" unique_id=486558704]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("2_nrs1p")
+
+[node name="Guide" type="RichTextLabel" parent="SettingsMenu/VBoxContainer/VBoxContainer" unique_id=934154922]
+layout_mode = 2
+bbcode_enabled = true
+text = "[font_size=48][center]<<< [Q]------------[E] >>>"
+fit_content = true
+scroll_active = false
+
+[node name="Music" type="RichTextLabel" parent="SettingsMenu/VBoxContainer/VBoxContainer" unique_id=908434383]
+layout_mode = 2
+bbcode_enabled = true
+text = "[font_size=64][left]Music: 100"
+fit_content = true
+scroll_active = false
+
+[node name="SFX" type="RichTextLabel" parent="SettingsMenu/VBoxContainer/VBoxContainer" unique_id=145088808]
+layout_mode = 2
+bbcode_enabled = true
+text = "[font_size=64][left]SFX: 100"
+fit_content = true
+scroll_active = false

@@ -20,14 +20,27 @@ static var main:Main
 const VOID_COLOR:Color = Color("ffffffff")
 @onready var sub_viewport: SubViewport = $GameplayContainer/SubViewport
 
+var map_list:Array[PackedScene]
+
 func _init() -> void:
+	var map_dir := DirAccess.open("res://Maps")
+	for m in map_dir.get_files():
+		map_list.append(load(map_dir.get_current_dir() + "/" + m))
+	assert(map_list.size() > 0, "what the fuck happened here. why are there no maps")
+	map_to_load = map_list[0]
 	main = self
 
 func _ready() -> void:
 	ui = $UI
+	ui.overworld_ui.appear()
+	add_child(load("res://Source/overworld_menu.tscn").instantiate())
+
+func load_map():
+	ui.overworld_ui.disappear()
 	sub_viewport.add_child(map_to_load.instantiate())
 	map = sub_viewport.get_child(0)
 	map_setup_complete.emit()
+
 var saved_input
 @onready var music: AudioStreamPlayer = $Music
 

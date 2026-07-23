@@ -10,3 +10,5 @@ light_mode = 1
 z_index = -2
 material = SubResource("CanvasItemMaterial_yo7go")
 script = ExtResource("1_u4shv")
+width = 32
+height = 32

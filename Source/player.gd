@@ -36,6 +36,10 @@ var next_jump_boost:Vector2 = Vector2.ZERO
 
 var spins = 1
 var MAX_SPINS = 1
+var current_spin_effect:SpinEffect = Default.new()
+
+func reset_spin_effect():
+	current_spin_effect = Default.new()
 
 enum State{
 	NORMAL=0,
@@ -150,7 +154,7 @@ func _physics_process(delta: float) -> void:
 	var rotate_dir:int = roundi(-Input.get_axis("rotate_left", "rotate_right"))
 	if spins > 0 and rotate_dir and not StateMachine == State.ROTATING:
 		var rotation_value = 90 * rotate_dir
-		rotate_level(rotation_value, true)
+		current_spin_effect.spin_effect(self,rotate_dir)
 	if Input.is_action_just_pressed("debug_unkillable"):
 		walk_audio.play()
 	direction = Input.get_axis("left", "right")

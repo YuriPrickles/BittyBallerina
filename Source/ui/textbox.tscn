@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://bw6x3ogpa8sv6"]
+
+[node name="Textbox" type="MarginContainer" unique_id=1465823547]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -212.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=469976850]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+color = Color(0, 0, 0, 0.49803922)
+
+[node name="Margin" type="MarginContainer" parent="ColorRect" unique_id=2101188311]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Text" type="RichTextLabel" parent="ColorRect/Margin" unique_id=1034295992]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][font_size=64]Jump while spinning to do a [wave]spinboost[/wave]!"
